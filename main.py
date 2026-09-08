@@ -1,5 +1,6 @@
 import secrets
 import string
+import hashlib
 
 
 def display_menu():
@@ -84,6 +85,14 @@ def password_strength_checker():
         print("Password Strength: Strong")
 
 
+def hash_generator():
+    text = input("Enter text to hash: ")
+
+    hash_value = hashlib.sha256(text.encode()).hexdigest()
+
+    print("SHA-256:", hash_value)
+
+
 def main():
     while True:
         display_menu()
@@ -101,7 +110,7 @@ def main():
                 password_strength_checker()
 
             elif option == 3:
-                print("Hash Generator - Coming in V1.1")
+                hash_generator()
 
             elif option == 4:
                 print("Goodbye!")
