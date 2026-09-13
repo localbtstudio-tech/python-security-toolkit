@@ -6,13 +6,14 @@ import hashlib
 def display_menu():
     print("-------------------------------------")
     print("|      PYTHON SECURITY TOOLKIT      |")
-    print("|              V1.1                 |")
+    print("|              V1.2                 |")
     print("-------------------------------------")
 
     print("1. Password Generator")
     print("2. Password Strength Checker")
     print("3. Hash Generator")
-    print("4. Exit")
+    print("4. File Hashing")
+    print("5. Exit")
 
 
 def password_generator():
@@ -93,6 +94,21 @@ def hash_generator():
     print("SHA-256:", hash_value)
 
 
+def file_hash():
+    file_name = input("Enter file name: ")
+
+    try:
+        with open(file_name, "rb") as file:
+            data = file.read()
+
+        hash_value = hashlib.sha256(data).hexdigest()
+
+        print("SHA-256:", hash_value)
+
+    except FileNotFoundError:
+        print("File not found.")
+
+
 def main():
     while True:
         display_menu()
@@ -113,6 +129,9 @@ def main():
                 hash_generator()
 
             elif option == 4:
+                file_hash()
+
+            elif option == 5:
                 print("Goodbye!")
                 break
 
