@@ -2,7 +2,7 @@ import secrets
 import string
 import hashlib
 import base64
-
+import binascii
 
 def display_menu():
     print("-------------------------------------")
@@ -133,11 +133,15 @@ def encode_decode():
             elif option == 2:
                 text = input("Enter Base64: ")
 
-                decoded = base64.b64decode(
-                    text
-                ).decode()
+                try:
+                    decoded = base64.b64decode(
+                        text
+                    ).decode()
 
-                print("Decoded:", decoded)
+                    print("Decoded:", decoded)
+
+                except (binascii.Error, UnicodeDecodeError):
+                    print("Invalid Base64 input.")
 
             elif option == 3:
                 break
@@ -147,7 +151,8 @@ def encode_decode():
 
         except ValueError:
             print("Please enter a number.")
-
+            
+            
 
 def main():
     while True:
