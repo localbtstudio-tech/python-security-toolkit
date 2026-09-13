@@ -1,6 +1,7 @@
 import secrets
 import string
 import hashlib
+import base64
 
 
 def display_menu():
@@ -13,7 +14,8 @@ def display_menu():
     print("2. Password Strength Checker")
     print("3. Hash Generator")
     print("4. File Hashing")
-    print("5. Exit")
+    print("5. Encode / Decode")
+    print("6. Exit")
 
 
 def password_generator():
@@ -109,6 +111,44 @@ def file_hash():
         print("File not found.")
 
 
+def encode_decode():
+    while True:
+        print("\n--- Encode / Decode ---")
+        print("1. Encode")
+        print("2. Decode")
+        print("3. Back")
+
+        try:
+            option = int(input("Choose an option: "))
+
+            if option == 1:
+                text = input("Enter text: ")
+
+                encoded = base64.b64encode(
+                    text.encode()
+                ).decode()
+
+                print("Encoded:", encoded)
+
+            elif option == 2:
+                text = input("Enter Base64: ")
+
+                decoded = base64.b64decode(
+                    text
+                ).decode()
+
+                print("Decoded:", decoded)
+
+            elif option == 3:
+                break
+
+            else:
+                print("Invalid option")
+
+        except ValueError:
+            print("Please enter a number.")
+
+
 def main():
     while True:
         display_menu()
@@ -132,6 +172,9 @@ def main():
                 file_hash()
 
             elif option == 5:
+                encode_decode()
+
+            elif option == 6:
                 print("Goodbye!")
                 break
 
