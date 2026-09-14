@@ -3,11 +3,13 @@ import string
 import hashlib
 import base64
 import binascii
+import socket
+
 
 def display_menu():
     print("-------------------------------------")
     print("|      PYTHON SECURITY TOOLKIT      |")
-    print("|              V1.2                 |")
+    print("|              V1.3                 |")
     print("-------------------------------------")
 
     print("1. Password Generator")
@@ -15,7 +17,8 @@ def display_menu():
     print("3. Hash Generator")
     print("4. File Hashing")
     print("5. Encode / Decode")
-    print("6. Exit")
+    print("6. Port Scanner")
+    print("7. Exit")
 
 
 def password_generator():
@@ -151,8 +154,41 @@ def encode_decode():
 
         except ValueError:
             print("Please enter a number.")
-            
-            
+
+
+def scan_port(ip, port):
+    sock = socket.socket(
+        socket.AF_INET,
+        socket.SOCK_STREAM
+    )
+
+    sock.settimeout(1)
+
+    result = sock.connect_ex((ip, port))
+
+    if result == 0:
+        print(f"Port {port} is OPEN")
+
+    sock.close()
+
+
+def port_scanner():
+    try:
+        ip = input("Enter target IP: ")
+
+        start_port = int(input("Enter start port: "))
+        end_port = int(input("Enter end port: "))
+
+        if start_port < 1 or end_port > 65535 or start_port > end_port:
+            print("Invalid port range.")
+            return
+
+        for port in range(start_port, end_port + 1):
+            scan_port(ip, port)
+
+    except ValueError:
+        print("Please enter valid numbers for ports.")
+
 
 def main():
     while True:
@@ -180,6 +216,9 @@ def main():
                 encode_decode()
 
             elif option == 6:
+                port_scanner()
+
+            elif option == 7:
                 print("Goodbye!")
                 break
 
