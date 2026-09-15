@@ -4,6 +4,7 @@ import hashlib
 import base64
 import binascii
 import socket
+import ipaddress
 
 
 def display_menu():
@@ -156,6 +157,15 @@ def encode_decode():
             print("Please enter a number.")
 
 
+def is_valid_ip(ip):
+    try:
+        ipaddress.ip_address(ip)
+        return True
+
+    except ValueError:
+        return False
+
+
 def scan_port(ip, port):
     sock = socket.socket(
         socket.AF_INET,
@@ -175,6 +185,10 @@ def scan_port(ip, port):
 def port_scanner():
     try:
         ip = input("Enter target IP: ")
+
+        if not is_valid_ip(ip):
+            print("Invalid IP address.")
+            return
 
         start_port = int(input("Enter start port: "))
         end_port = int(input("Enter end port: "))
