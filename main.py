@@ -19,7 +19,8 @@ def display_menu():
     print("4. File Hashing")
     print("5. Encode / Decode")
     print("6. Port Scanner")
-    print("7. Exit")
+    print("7. IP Information")
+    print("8. Exit")
 
 
 def password_generator():
@@ -203,6 +204,20 @@ def port_scanner():
     except ValueError:
         print("Please enter valid numbers for ports.")
 
+def ip_information():
+    ip = input("Enter IP address: ")
+
+    try:
+        address = ipaddress.ip_address(ip)
+
+        print("IP Address:", address)
+        print("Version:", address.version)
+        print("Private:", address.is_private)
+        print("Loopback:", address.is_loopback)
+        print("Global:", address.is_global)
+
+    except ValueError:
+        print("Invalid IP address.")
 
 def main():
     while True:
@@ -231,11 +246,14 @@ def main():
 
             elif option == 6:
                 port_scanner()
-
+                
             elif option == 7:
+                ip_information()
+                
+            elif option == 8:
                 print("Goodbye!")
                 break
-
+            
             else:
                 print("Invalid option")
 
